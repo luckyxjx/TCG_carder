@@ -1,0 +1,208 @@
+        /* Custom Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Dark background */
+            color: #e2e8f0; /* Light text */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align top */
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .game-container {
+            width: 100%;
+            max-width: 1200px; /* Increased max-width */
+        }
+
+        /* --- Screen Styles --- */
+        .screen { display: none; } /* Hide screens by default */
+        .screen.active { display: block; }
+
+        /* Name Input Screen */
+        #nameInputScreen {
+             max-width: 500px; margin: 4rem auto; padding: 2rem;
+             background-color: #2d3748; border-radius: 0.75rem; border: 1px solid #4a5568;
+             text-align: center;
+        }
+        #nameInputScreen h2 { font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem; color: #cbd5e0;}
+        #nameInputScreen label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #a0aec0; text-align: left;}
+        #nameInputScreen input {
+            width: 100%; padding: 0.5rem 0.75rem; margin-bottom: 1rem; border-radius: 0.375rem;
+            background-color: #4a5568; border: 1px solid #718096; color: #e2e8f0;
+        }
+        #nameInputScreen button {
+            padding: 0.75rem 1.5rem; border-radius: 0.5rem; background-color: #4299e1; color: white;
+            font-weight: bold; cursor: pointer; transition: background-color 0.2s; width: 100%;
+        }
+        #nameInputScreen button:hover { background-color: #3182ce; }
+
+        /* Deck Selection Screen */
+        #deckSelectionScreen {
+            max-width: 800px; margin: 2rem auto; padding: 1.5rem;
+            background-color: #2d3748; border-radius: 0.75rem; border: 1px solid #4a5568;
+        }
+        .available-cards-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1rem; margin-bottom: 1.5rem; max-height: 40vh; overflow-y: auto; padding: 0.5rem;
+            border: 1px dashed #4a5568; border-radius: 0.5rem;
+        }
+        .selectable-card {
+            /* Base border */
+            border: 2px solid #4a5568;
+            border-radius: 0.5rem; padding: 0.75rem;
+            background-color: #4a5568; cursor: pointer; transition: all 0.2s ease;
+            text-align: center; font-size: 0.9rem;
+            display: flex; flex-direction: column; justify-content: space-between; min-height: 100px;
+        }
+        .selectable-card:hover { background-color: #718096; }
+        /* Keep selected style distinct */
+        .selectable-card.selected { border-color: #63b3ed !important; /* Use !important to override element border */ background-color: #3182ce; color: white; }
+        .selectable-card.disabled { opacity: 0.5; cursor: not-allowed; background-color: #2d3748; }
+        .selectable-card span { display: block; font-weight: bold; margin-bottom: 0.25rem; }
+        .selectable-card small { font-size: 0.75rem; color: #a0aec0; }
+        .selected-deck-area { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #4a5568; }
+        .selected-deck-slots { display: flex; gap: 1rem; justify-content: center; min-height: 80px; flex-wrap: wrap; }
+        .deck-slot {
+            border: 2px dashed #718096; border-radius: 0.5rem; width: 150px; height: 70px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            font-size: 0.8rem; color: #a0aec0; background-color: #2d3748;
+            padding: 0.5rem; text-align: center;
+        }
+        .deck-slot.filled { border-style: solid; border-color: #63b3ed; color: #e2e8f0; }
+        .deck-slot span { display: block; font-weight: bold; }
+        #confirmDeckButton {
+            display: block; width: 100%; padding: 0.75rem; margin-top: 1.5rem;
+            border-radius: 0.5rem; background-color: #38a169; color: white; font-weight: bold;
+            cursor: pointer; transition: background-color 0.2s; text-align: center;
+        }
+        #confirmDeckButton:hover:not(:disabled) { background-color: #2f855a; }
+        #confirmDeckButton:disabled { opacity: 0.6; cursor: not-allowed; background-color: #4a5568; }
+
+        /* Battle Area Styles */
+        #battleArea {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr; /* Player 1 | Info | Player 2 */
+            grid-template-rows: auto 1fr; /* Header | Battle Content */
+            gap: 1rem; /* Gap between columns */
+            width: 100%;
+        }
+        .player-area {
+            grid-row: 2 / 3; /* Span only the second row */
+            display: flex; flex-direction: column; align-items: center;
+            border: 1px solid #4a5568; padding: 1rem; border-radius: 0.75rem; background-color: #2d3748;
+        }
+        #player1Area { grid-column: 1 / 2; }
+        #player2Area { grid-column: 3 / 4; }
+        .battle-info-area {
+            grid-column: 2 / 3; grid-row: 1 / 3; /* Span both rows */
+            display: flex; flex-direction: column;
+            border: 1px solid #4a5568; padding: 1rem; border-radius: 0.75rem; background-color: #2d3748;
+            min-width: 300px; /* Ensure info area has some width */
+        }
+        .match-header {
+             grid-column: 1 / 4; grid-row: 1 / 2; /* Span all columns, first row */
+             text-align: center; padding-bottom: 1rem; margin-bottom: 1rem;
+             border-bottom: 1px solid #4a5568;
+        }
+        .match-title { font-size: 1.5rem; font-weight: bold; color: #63b3ed; margin-bottom: 0.5rem;}
+        .round-info { font-size: 1.1rem; color: #a0aec0; }
+        .player-area h2 { font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; }
+        #player1NameDisplay { color: #68d391; } /* Green for P1 */
+        #player2NameDisplay { color: #fc8181; } /* Red for P2 */
+
+        .card-display-area { display: flex; justify-content: center; align-items: flex-start; margin-bottom: 1rem; min-height: 350px; /* Ensure space */ }
+        .bench-display-area { width: 100%; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #4a5568; }
+        .bench-display-area h5 { font-weight: bold; margin-bottom: 0.75rem; color: #a0aec0; text-align: center; font-size: 1rem; }
+        .bench-list { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+
+        /* Card Styles (Adapted for 2P) */
+        .card {
+             /* Default border */
+            border: 2px solid #4a5568;
+            border-radius: 0.75rem; padding: 1rem;
+            background-color: #2d3748; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out; /* Added border-color transition */
+            min-width: 200px; max-width: 230px; /* Slightly smaller cards */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); position: relative;
+            display: flex; flex-direction: column;
+        }
+        .card.active-turn { /* Highlight card whose turn it is */
+            border-color: #f6e05e !important; /* Yellow border - Use !important to override element border */
+            box-shadow: 0 0 15px rgba(246, 224, 94, 0.5);
+        }
+        .placeholder-card { border-style: dashed; color: #718096; display: flex; justify-content: center; align-items: center; min-height: 150px; width: 200px; }
+        .card-name { font-size: 1.1rem; font-weight: bold; margin-bottom: 0.25rem; color: #a0aec0; text-align: center; }
+        .card-element-indicator { font-size: 0.8rem; font-weight: normal; margin-left: 0.25rem; } /* Style for element indicator */
+        .card-image { height: 80px; background-color: #4a5568; border-radius: 0.5rem; margin-bottom: 0.25rem; display: flex; align-items: center; justify-content: center; font-style: italic; color: #718096; font-weight: bold; font-size: 1rem; }
+        .card-hp-bar { width: 100%; background-color: #4a5568; border-radius: 0.25rem; height: 8px; overflow: hidden; margin-bottom: 0.25rem; }
+        .card-hp-inner { height: 100%; background-color: #68d391; transition: width 0.3s ease; }
+        .card-hp-text { font-size: 0.75rem; text-align: center; color: #cbd5e0; margin-bottom: 0.25rem; font-weight: bold; }
+        .card-energy { font-size: 0.75rem; text-align: center; color: #63b3ed; margin-bottom: 0.5rem; font-weight: bold; } /* Energy Display */
+        .card-stats { font-size: 0.8rem; margin-bottom: 0.25rem; color: #cbd5e0; text-align: center; }
+        .status-effects { min-height: 18px; margin-bottom: 0.5rem; display: flex; gap: 0.25rem; flex-wrap: wrap; justify-content: center; }
+        .status-icon { font-size: 0.65rem; padding: 0.1rem 0.3rem; border-radius: 0.25rem; font-weight: bold; border: 1px solid; display: inline-flex; align-items: center; text-transform: uppercase; }
+        /* Status Colors (Unchanged) */
+        .status-stun { background-color: #f6e05e; color: #744210; border-color: #ecc94b; } .status-dot { background-color: #e53e3e; color: #fff; border-color: #c53030; } .status-evade { background-color: #a0aec0; color: #1a202c; border-color: #718096; } .status-reflect { background-color: #ed64a6; color: #fff; border-color: #d53f8c; } .status-blind { background-color: #4a5568; color: #e2e8f0; border-color: #2d3748; } .status-defenseup { background-color: #9f7aea; color: #fff; border-color: #805ad5; } .status-attackup { background-color: #f56565; color: #fff; border-color: #c53030; } .status-accuracydown { background-color: #718096; color: #1a202c; border-color: #4a5568; } .status-evadeup { background-color: #e2e8f0; color: #2d3748; border-color: #a0aec0; } .status-damagereduction { background-color: #a0aec0; color: #2d3748; border-color: #718096; } .status-bind { background-color: #a0522d; color: #fff; border-color: #8b4513; } .status-snare { background-color: #228b22; color: #fff; border-color: #006400; } .status-electricresistance { background-color: #f6e05e; color: #744210; border-color: #ecc94b; } .status-leech { background-color: #e53e3e; color: #fff; border-color: #c53030; } .status-healpercent { background-color: #68d391; color: #1a202c; border-color: #38a169; } .status-drain { background-color: #9f7aea; color: #fff; border-color: #805ad5; } .status-heal { background-color: #68d391; color: #1a202c; border-color: #38a169; } .status-healally { background-color: #63b3ed; color: #1a202c; border-color: #3182ce; } .status-quick { background-color: #faf089; color: #744210; border-color: #f6e05e; } .status-displace { background-color: #a0aec0; color: #1a202c; border-color: #718096; } .status-shock { background-color: #f6e05e; color: #744210; border-color: #ecc94b; } .status-pierce { background-color: #e53e3e; color: #fff; border-color: #c53030; } .status-pushback { background-color: #a0aec0; color: #1a202c; border-color: #718096; } .status-speedup { background-color: #faf089; color: #744210; border-color: #f6e05e; } .status-debuffremoval { background-color: #a0aec0; color: #1a202c; border-color: #718096; } .status-speeddown { background-color: #718096; color: #1a202c; border-color: #4a5568; } .status-knockback { background-color: #a0aec0; color: #1a202c; border-color: #718096; } .status-hpup { background-color: #68d391; color: #1a202c; border-color: #38a169; } .status-manasteal { background-color: #9f7aea; color: #fff; border-color: #805ad5; } .status-selfstun { background-color: #f6e05e; color: #744210; border-color: #ecc94b; } .status-chain { background-color: #f6e05e; color: #744210; border-color: #ecc94b; }
+
+        /* Action Buttons Styles (Adapted for 2P) */
+        .action-buttons { display: flex; flex-direction: column; gap: 0.25rem; margin-top: auto; }
+        .action-button {
+            padding: 0.4rem 0.8rem; border: 1px solid #4a5568; border-radius: 0.375rem;
+            background-color: #4a5568; color: #e2e8f0; cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s; font-size: 0.8rem; text-align: left;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .action-button:hover:not(:disabled) { background-color: #63b3ed; border-color: #63b3ed; color: #1a202c; }
+        .action-button:disabled { opacity: 0.5; cursor: not-allowed; background-color: #3b4557; }
+        .move-details { font-size: 0.7rem; color: #a0aec0; margin-left: 0.5rem; display: block; white-space: nowrap; }
+        .move-cost { font-size: 0.7rem; color: #63b3ed; font-weight: bold; } /* Energy Cost Display */
+        .move-name { flex-grow: 1; }
+
+        /* Bench Styles (Adapted for 2P) */
+        .bench-card-button {
+            font-size: 0.8rem; width: 120px; text-align: center; padding: 0.4rem;
+            border: 1px solid #4a5568; border-radius: 0.375rem; background-color: #4a5568;
+            color: #e2e8f0; cursor: pointer; transition: background-color 0.2s, border-color 0.2s;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            min-height: 50px;
+        }
+        .bench-card-button.fainted { text-decoration: line-through; color: #718096; background-color: #2d3748; border-color: #4a5568; opacity: 0.6; cursor: not-allowed; }
+        .fainted-status { color: #e53e3e; font-weight: bold; display: block; font-size: 0.7rem; }
+        .bench-hp { color: #68d391; font-weight: bold; display: block; font-size: 0.7rem; }
+        .bench-card-button.selectable { border-color: #f6e05e; background-color: #4a5568; color: #f6e05e; }
+         .bench-card-button.selectable:hover:not(:disabled) { background-color: #ecc94b; border-color: #ecc94b; color: #1a202c; }
+         .bench-card-button:disabled:not(.fainted) { opacity: 0.7; cursor: not-allowed; }
+
+        /* Battle Info Area Styles */
+        #battleLog { height: 40vh;  overflow-y: scroll; background-color: #2d3748; border: 1px solid #4a5568; border-radius: 0.5rem; padding: 0.75rem; margin-top: 1rem; font-size: 0.875rem; line-height: 1.5; color: #cbd5e0; flex-grow: 1; /* Allow log to take space */ }
+        /* Log Message Styles (Unchanged) */
+        #battleLog p { margin-bottom: 0.35rem; transition: color 0.3s ease; } #battleLog p.log-action { color: #e2e8f0; font-weight: 500; } #battleLog p.log-status { color: #a0aec0; font-style: italic; } #battleLog p.log-info { color: #718096; font-size: 0.8rem; } #battleLog p.log-error { color: #fc8181; font-weight: bold; } #battleLog p.log-faint { color: #e53e3e; font-weight: bold; } #battleLog p.log-switch { color: #f6e05e; } #battleLog p.log-turn { color: #63b3ed; font-weight: bold; border-top: 1px dashed #4a5568; padding-top: 0.3rem; margin-top: 0.3rem;} #battleLog p.log-effect { color: #ed64a6; } #battleLog p.log-advantage { color: #68d391; font-weight: 500; } #battleLog p.log-disadvantage { color: #fc8181; font-weight: 500; } #battleLog p.log-heal { color: #9ae6b4; } #battleLog p.log-buff { color: #faf089; } #battleLog p.log-debuff { color: #feb2b2; } #battleLog p.log-ai { color: #fbd38d; font-size: 0.8rem; font-style: italic; }
+
+        /* Winner Display Styles */
+        #roundEndDisplay, #matchEndDisplay { text-align: center; margin-top: 1rem; padding: 1rem; background-color: #4a5568; border-radius: 0.5rem; border: 1px solid #718096; }
+        #roundEndDisplay h3, #matchEndDisplay h3 { font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem; color: #f6e05e; }
+        #roundEndDisplay p, #matchEndDisplay p { margin-bottom: 1rem; color: #cbd5e0;}
+        #roundEndDisplay button, #matchEndDisplay button { padding: 0.5rem 1rem; border-radius: 0.375rem; background-color: #4299e1; color: white; font-weight: bold; cursor: pointer; transition: background-color 0.2s; }
+        #roundEndDisplay button:hover, #matchEndDisplay button:hover { background-color: #3182ce; }
+
+        /* Fainted Overlay */
+        .fainted-display { opacity: 0.5; border-style: dashed; border-color: #718096; }
+        .fainted-display::after { content: 'FAINTED'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg); font-size: 1.5rem; font-weight: bold; color: rgba(229, 62, 62, 0.7); background-color: rgba(45, 55, 72, 0.5); padding: 0.25rem 0.75rem; border-radius: 0.25rem; z-index: 10; pointer-events: none; }
+
+        /* --- NEW: Elemental Differentiation Styles --- */
+        .card.element-Flame, .selectable-card.element-Flame { border-color: #e53e3e; }
+        .card.element-Tide, .selectable-card.element-Tide { border-color: #4299e1; }
+        .card.element-Gale, .selectable-card.element-Gale { border-color: #48bb78; }
+        .card.element-Earth, .selectable-card.element-Earth { border-color: #d69e2e; }
+        .card.element-Shock, .selectable-card.element-Shock { border-color: #f6e05e; }
+        /* Adjust card name color based on element */
+        .element-Flame .card-name { color: #fc8181; }
+        .element-Tide .card-name { color: #63b3ed; }
+        .element-Gale .card-name { color: #68d391; }
+        .element-Earth .card-name { color: #ecc94b; }
+        .element-Shock .card-name { color: #f6e05e; }
+        /* Element Indicator Colors */
+        .element-Flame .card-element-indicator { color: #fc8181; }
+        .element-Tide .card-element-indicator { color: #63b3ed; }
+        .element-Gale .card-element-indicator { color: #68d391; }
+        .element-Earth .card-element-indicator { color: #ecc94b; }
+        .element-Shock .card-element-indicator { color: #f6e05e; }

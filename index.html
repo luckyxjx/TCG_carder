@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elemental Card Battle - Two Player</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="game-container">
+    <h1 class="text-3xl font-bold text-center mb-6 text-blue-400">Elemental Card Battle - Two Player</h1>
+
+    <div id="nameInputScreen" class="screen active">
+        <h2>Enter Player Names</h2>
+        <div>
+            <label for="player1NameInput">Player 1 Name:</label>
+            <input type="text" id="player1NameInput" value="Player 1">
+        </div>
+        <div>
+            <label for="player2NameInput">Player 2 Name:</label>
+            <input type="text" id="player2NameInput" value="Player 2">
+        </div>
+        <button id="confirmNamesButton">Start Deck Selection</button>
+    </div>
+
+    <div id="deckSelectionScreen" class="screen">
+        <h2 id="deckSelectorTitle" class="text-2xl font-semibold text-center mb-4 text-gray-300">Build Your Deck (Choose 3 Cards)</h2>
+        <p class="text-center text-sm text-gray-400 mb-4">Click on a card below to add or remove it from your deck.</p>
+        <div class="available-cards-grid" id="availableCardsGrid"></div>
+        <div class="selected-deck-area">
+            <h3 class="text-lg font-semibold text-center mb-3 text-gray-400">Your Deck:</h3>
+            <div class="selected-deck-slots" id="selectedDeckSlots">
+                <div class="deck-slot">Slot 1</div> <div class="deck-slot">Slot 2</div> <div class="deck-slot">Slot 3</div>
+            </div>
+        </div>
+        <button id="confirmDeckButton" disabled>Select 3 Cards</button>
+    </div>
+
+    <div id="battleArea" class="screen">
+        <div class="match-header">
+            <div id="matchTitle" class="match-title">Player 1 vs Player 2</div>
+            <div id="roundInfo" class="round-info">Round 1 | P1: 0 - P2: 0</div>
+        </div>
+
+        <div id="player1Area" class="player-area">
+            <h2 id="player1NameDisplay">Player 1</h2>
+            <div id="player1CardArea" class="card-display-area">
+                <div class="card placeholder-card">Waiting...</div>
+            </div>
+            <div id="player1BenchArea" class="bench-display-area">
+                <h5>Bench</h5>
+                <div class="bench-list">
+                    <p class="text-gray-500 text-sm italic">Bench is empty.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="battle-info-area">
+            <h2 class="text-xl font-semibold mb-4 text-gray-400 text-center">Battle Info</h2>
+            <div id="turnIndicator" class="text-center font-bold text-lg mb-4 text-yellow-400">Player 1's Turn</div>
+            <div id="battleLog">
+                <p class="log-info">Battle starting...</p>
+            </div>
+            <div id="roundEndDisplay" style="display: none;">
+                 <h3>Round Over!</h3>
+                 <p id="roundWinnerText"></p>
+                 <button id="nextRoundButton">Next Round</button>
+            </div>
+             <div id="matchEndDisplay" style="display: none;">
+                 <h3>Match Over!</h3>
+                 <p id="matchWinnerText"></p>
+                 <button id="newGameButton">Play Again</button>
+            </div>
+        </div>
+
+        <div id="player2Area" class="player-area">
+            <h2 id="player2NameDisplay">Player 2</h2>
+            <div id="player2CardArea" class="card-display-area">
+                <div class="card placeholder-card">Waiting...</div>
+            </div>
+             <div id="player2BenchArea" class="bench-display-area">
+                <h5>Bench</h5>
+                <div class="bench-list">
+                    <p class="text-gray-500 text-sm italic">Bench is empty.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+<!--
+// ========================================================================
+// SECTION: Card Database (with Energy Costs)
+// ========================================================================
+// --- HOW TO ADD NEW CARDS ---
+// 1. Add a new function entry below (e.g., `createMyCard: () => new Card(...)`).
+// 2. Fill in the Card constructor arguments: Name, Element, SubElement, Level, Attack, Defense, HP, MaxHP.
+// 3. Define the moveset as an array of `new Move(...)` objects.
+// 4. Remember the Move constructor: `new Move(Name, Damage, Effect, EnergyCost, EffectDuration, EffectValue)`
+// 5. The card will automatically appear in the deck selection screen.
+// 6. If adding a NEW element, update `elementalAdvantages` in the Battle class and add CSS styles for the element.
+// --------------------------
